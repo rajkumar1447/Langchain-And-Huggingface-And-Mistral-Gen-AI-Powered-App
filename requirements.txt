@@ -4,3 +4,6 @@ langchain-community==0.3.27
 sentence-transformers==3.2.1
 langchain-huggingface==0.3.1
 pypdf==4.3.1
+faiss-cpu==1.8.0.post1
+pandas==2.2.2
+numpy==1.26.4
