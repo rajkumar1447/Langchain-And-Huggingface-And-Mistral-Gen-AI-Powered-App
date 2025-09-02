@@ -5,11 +5,17 @@ class VectorStoreManager:
         self.embeddings = embeddings
         self.db = None
 
-    def build(self, documents):
-        self.db = FAISS.from_documents(documents, self.embeddings)
+    def build(self, chunks):
+        self.db = FAISS.from_documents(chunks, self.embeddings)
         return self.db
 
     def get_retriever(self):
-        if not self.db:
-            raise ValueError("Vector store not built yet.")
         return self.db.as_retriever()
+
+    def save(self, path: str):
+        if self.db:
+            self.db.save_local(path)
+
+    def load(self, path: str):
+        self.db = FAISS.load_local(path, self.embeddings, allow_dangerous_deserialization=True)
+        return self.db
